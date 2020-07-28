@@ -35,14 +35,14 @@ export class ProductlistComponent implements OnInit {
   }
 
 //delete product
-delete(i){
-  console.log(i);
+delete(product,index){
+  console.log(product);
   if(confirm('Are you sure?')===true){
-  this.productService.deleteProduct(i)
+    this.products.splice(index,1)
+  this.productService.deleteProduct(product._id)
   .subscribe((res)=>{
     console.log('deleted');
-    //location.reload();
-    // this.products = JSON.parse(JSON.stringify(data));
+  
   })
 }
  }

@@ -18,7 +18,7 @@ export class NewproductComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has("productId")) {
+      if (paramMap.has("productId")){
         this.mode = "update";
         this.pid = paramMap.get("productId");
         this.title='Edit Product';

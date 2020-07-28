@@ -12,36 +12,6 @@ const app = new express();
 app.use(cors());
 app.use(bodyparser.json());
 app.use('/api',api);
-app.get('/products',(req,res)=>{
-    res.header('Access-Control-Allow-Origin','*')
-    res.header('Access-control-Allow-Methods :GET,POST,PATCH,PUT,DELETE,OPTIONS')
-    ProductData.find()
-    .then((products)=>{
-        console.log(products);
-        res.send(products);
-    })
-})
-
-app.get('/singleProduct/:pid',(req,res)=>{
-    let pid = req.params.pid;
-    console.log(pid,typeof pid,pid.length);
-    ProductData.findById(pid)
-    .then((product)=>{
-      console.log('single product set',product);
-      res.status(200).json({product});
-    })
-  })
-
- // Delete employee
- app.delete('/products/:id',(req, res) => {
-    ProductData.findByIdAndRemove(req.params.id)
-    .then(()=>{
-        console.log('Deleted')
-    })
-    .catch((err)=>{
-        console.log('Error is: ',err)
-    })
- })
 
 function verifyToken(req,res,next){
     if(!req.headers.authorization){
@@ -58,6 +28,16 @@ function verifyToken(req,res,next){
     req.userId = payload.subject
     next()
  }
+
+app.get('/products',(req,res)=>{
+    res.header('Access-Control-Allow-Origin','*')
+    res.header('Access-control-Allow-Methods :GET,POST,PATCH,PUT,DELETE,OPTIONS')
+    ProductData.find()
+    .then((products)=>{
+        console.log(products);
+        res.send(products);
+    })
+})
 
 app.post('/insert',verifyToken,(req,res)=>{
     res.header('Access-Control-Allow-Origin','*')
@@ -100,6 +80,27 @@ app.post('/edit',verifyToken,(req,res)=>{
         console.log("Error is: ",err)
     })
 });
+
+app.get('/singleProduct/:pid',(req,res)=>{
+    let pid = req.params.pid;
+    console.log(pid,typeof pid,pid.length);
+    ProductData.findById(pid)
+    .then((product)=>{
+      console.log('single product set',product);
+      res.status(200).json({product});
+    })
+  })
+
+ // Delete employee
+ app.delete('/products/:id',(req, res) => {
+    ProductData.findByIdAndRemove(req.params.id)
+    .then(()=>{
+        console.log('Deleted')
+    })
+    .catch((err)=>{
+        console.log('Error is: ',err)
+    })
+ })
 
 mongoose.connect(db,(err)=>{
     if(err){

@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products">
+                    <tr *ngFor="let product of products;let i = index">
                         <td><img *ngIf="showImage"
                             [src] = "product.imageUrl"
                             [title]="product.productName"
@@ -32,8 +32,8 @@
                         <td>{{product.productCode}}</td>
                         <td>{{product.releaseDate}}</td>
                         <td>{{product.price}}</td>
-                        <td>{{product.starRating}}</td><a [routerLink]="['edit',product._id]" > <button type="button" class="btn btn-warning m-3">Edit</button></a>
-                        <button type="button" (click)=delete(product._id) class="btn btn-danger m-3">Delete</button>
+                        <td>{{product.starRating}}</td><a [routerLink]="['edit',product._id]" ><button type="button" class="btn btn-warning m-3">Edit</button></a>
+                        <button type="button" (click)=delete(product,i) class="btn btn-danger m-3">Delete</button>
                     </tr>
                 </tbody>
             </table>
